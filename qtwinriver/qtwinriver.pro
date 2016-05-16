@@ -15,10 +15,14 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     scatterplot.cpp \
-    plot.cpp
+    plot.cpp \
+    rawdatafromdb.cpp \
+    tgraphdatamodel.cpp
 
 HEADERS  += mainwindow.h \
     scatterplot.h \
-    plot.h
+    plot.h \
+    rawdatafromdb.h \
+    tgraphdatamodel.h
 
 FORMS    += mainwindow.ui
