@@ -69,7 +69,6 @@ void MainWindow::slotGetResult(double result) {
 
 MainWindow::~MainWindow()
 {
-
     computePiThread->terminate();
     computePiThread->wait();
     delete computePiThread;
@@ -110,11 +109,20 @@ void MainWindow::tableModel(double result)
     tempMap.insert("流向", 116.52);
     tempMap.insert("水深", 2.712);
     tempMap.insert("航迹长度", 1390.44);
-    tempMap.insert("直线距离", 1383.16);
-    tempMap.insert("航迹方向", 4.39);
-    tempMap.insert("历时", 711.50);
-    tempMap.insert("纬度", 31);
-    tempMap.insert("经度", 118);
+    if (false){
+        tempMap.insert("直线距离", 1383.16);
+        tempMap.insert("航迹方向", 4.39);
+        tempMap.insert("历时", 711.50);
+        tempMap.insert("纬度", 31);
+        tempMap.insert("经度", 118);
+    } else {
+        QSqlQueryModel *sql_model = raw_data->GetDataModel();
+        tempMap.insert("直线距离", sql_model->record(0).value(1).toDouble());
+        tempMap.insert("航迹方向", sql_model->record(1).value(1).toDouble());
+        tempMap.insert("历时", sql_model->record(2).value(1).toDouble());
+        tempMap.insert("纬度", sql_model->record(3).value(1).toDouble());
+        tempMap.insert("经度", sql_model->record(4).value(1).toDouble());
+    }
     model->setDataMap(tempMap);
 
     QMap<QString, QString> temp2Map;
@@ -133,10 +141,12 @@ void MainWindow::tableModel(double result)
     //initializeModel(&model);
 }
 void MainWindow::showTable() {
+
     QTableView *view1 = createView(model, QObject::tr("导航(相对于底跟踪)"));
     QTableView *view2 = createView(model, QObject::tr("Table Model (View 2)"));
 
     view1->resize(270, 380);
+    view1->update();
     view1->show();
 
     view2->move(view1->x() + view1->width() + 20, view1->y());

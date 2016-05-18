@@ -7,6 +7,7 @@
 
 #include "tablemodel.h"
 #include "computethread.h"
+#include "rawdatafromdb.h"
 
 namespace Ui {
 class MainWindow;
