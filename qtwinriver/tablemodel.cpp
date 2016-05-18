@@ -95,6 +95,22 @@ QVariant MyTableModel::data(const QModelIndex &index, int role) const
 }
 
 /*
+ * set data
+ */
+bool MyTableModel::setData(const QModelIndex &index, const QVariant &value, int role)
+{
+    if (index.isValid() && role == Qt::EditRole && index.column() == 0)
+    {
+        QString keyIndex = itemAt(index.row());
+        dataMap[keyIndex] = value.toDouble();
+
+        emit dataChanged(index, index);
+        return true;
+    }
+    return false;
+}
+
+/*
  * return map key
  */
 QString MyTableModel::itemAt(int offset) const

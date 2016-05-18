@@ -49,13 +49,20 @@ MainWindow::MainWindow(QWidget *parent) :
     setMenuBar(ui->menuBar);
     this->showMaximized();
     //ui->menuBar;
+
+    initialTable();
+    //tableModel();
     connect(shipSpeed, SIGNAL(triggered()), this, SLOT(showGraph()));
+
+    connect(tableTemp1, SIGNAL(triggered()), this, SLOT(showTable()));
 
     computePiThread = new ComputeThread;
     computePiThread->start();
-    //connect(computePiThread, SIGNAL(computeFinish(double)), this, SLOT(slotGetResult(double)));
+    ////connect(computePiThread, SIGNAL(computeFinish(double)), this, SLOT(slotGetResult(double)));
 
-    connect(tableTemp1, SIGNAL(triggered()), this, SLOT(showTable()));
+    //tableModel();
+
+    //connect(tableTemp1, SIGNAL(triggered()), this, SLOT(showTable()));
     connect(computePiThread, SIGNAL(computeFinish(double)), this, SLOT(tableModel(double)));
     //TGraphDataModel *t_data_model = new TGraphDataModel();
     //qDebug()<<t_data_model->GetRecordNum();
@@ -92,18 +99,13 @@ void MainWindow::showGraph()
 /*
  * show table
  */
-//FIXME:
-void MainWindow::tableModel(double result)
+//For TEST: later add to sql class
+void MainWindow::initialTable()
 {
-    //QApplication app(argc, argv);
-    //if (!createConnection())
-    //    return 1;
-
     model = new MyTableModel;
 
     QMap<QString, double> tempMap;
-    //tempMap.insert("船速", 2.090);
-    tempMap.insert("船速", result);
+    tempMap.insert("船速", 2.090);
     tempMap.insert("航向", 2.53);
     tempMap.insert("流速", 0.341);
     tempMap.insert("流向", 116.52);
@@ -138,8 +140,20 @@ void MainWindow::tableModel(double result)
     temp2Map.insert("纬度", "[58.232995'N]");
     temp2Map.insert("经度", "[37.768470'E]");
     model->setUnitMap(temp2Map);
+}
+
+//void MainWindow::tableModel(double result)
+void MainWindow::tableModel(double result)
+{
+    //QApplication app(argc, argv);
+    //if (!createConnection())
+    //    return 1;
+
+    QModelIndex changeIndex = model->index(1, 0);
+    model->setData(changeIndex, result, Qt::EditRole);
     //initializeModel(&model);
 }
+
 void MainWindow::showTable() {
 
     QTableView *view1 = createView(model, QObject::tr("导航(相对于底跟踪)"));
@@ -152,7 +166,6 @@ void MainWindow::showTable() {
     view2->move(view1->x() + view1->width() + 20, view1->y());
     view2->resize(270, 380);
     //view2->show();
-
     //return app.exec();
 }
 

@@ -8,7 +8,6 @@ ComputeThread::ComputeThread(QObject *parent) :
 {
 }
 
-
 void ComputeThread::run()
 {
     qDebug()<<this->currentThreadId()<<":Begin computing!"<<endl;
@@ -20,11 +19,13 @@ void ComputeThread::run()
 //        if (i % 2 == 1) result+=value;
 //        else result-=value;
 //    }
+    double result = 33.333;
+    //int i = 0;
+    //while (i++ < 1000)
+    //    if (i == 1000) {
 //    emit this->computeFinish(result);
-    float result = 111;
     result = raw_data->GetDataModel()->record(1).value(3).toDouble();
     qDebug()<<result;
-    int i = 0;
     emit this->computeFinish(result);
 //    while (i++ < 10000000)
 //        if (i == 10000000) {
