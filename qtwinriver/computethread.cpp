@@ -1,4 +1,7 @@
 #include "computethread.h"
+#include "rawdatafromdb.h"
+
+extern RawDataFromDB *raw_data;
 
 ComputeThread::ComputeThread(QObject *parent) :
     QThread(parent)
@@ -18,13 +21,16 @@ void ComputeThread::run()
 //        else result-=value;
 //    }
 //    emit this->computeFinish(result);
-    float result = 0;
+    float result = 111;
+    result = raw_data->GetDataModel()->record(1).value(3).toDouble();
+    qDebug()<<result;
     int i = 0;
-    while (i++ < 10000000)
-        if (i == 10000000) {
-            emit this->computeFinish(result);
-            i = 0;
-            result++;
-        }
+    emit this->computeFinish(result);
+//    while (i++ < 10000000)
+//        if (i == 10000000) {
+//            emit this->computeFinish(result);
+//            i = 0;
+//            result++;
+//        }
 }
 
