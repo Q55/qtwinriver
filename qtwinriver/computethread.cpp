@@ -8,7 +8,7 @@ ComputeThread::ComputeThread(QObject *parent) :
 void ComputeThread::run()
 {
     qDebug()<<this->currentThreadId()<<":Begin computing!"<<endl;
-//    int time = 1000000000;
+//    int time = 10000;
 //    float result=0;
 //    for(int i=1;i<=time;i++)
 //    {
@@ -20,6 +20,10 @@ void ComputeThread::run()
     //int i = 0;
     //while (i++ < 1000)
     //    if (i == 1000) {
+//    emit this->computeFinish(result);
+    int i = 0;
+//    while (i++ < 10000000)
+//        if (i == 10000000) {
             emit this->computeFinish(result);
     qDebug() << "result is " << result << endl;
             //i = 0;
