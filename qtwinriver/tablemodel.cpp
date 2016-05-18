@@ -1,5 +1,6 @@
 #include <QtCore>
 
+
 #include "tablemodel.h"
 //#include "sqlconnection.h"
 /*
@@ -22,8 +23,12 @@ QTableView *createView(QSqlTableModel *model, const QString &title = "")
     return view;
 }
 */
+MyTableModel::~MyTableModel () {
+}
+
 MyTableModel::MyTableModel(QObject *parent) : QAbstractTableModel(parent)
 {
+
 }
 
 void MyTableModel::setDataMap(const QMap<QString, double> &map)

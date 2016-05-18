@@ -10,6 +10,7 @@ class MyTableModel : public QAbstractTableModel
 {
 public:
     MyTableModel(QObject *parent = 0);
+    ~MyTableModel ();
 
     void setDataMap(const QMap<QString, double> &map);
     void setUnitMap(const QMap<QString, QString> &map);

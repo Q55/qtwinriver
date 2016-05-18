@@ -6,6 +6,7 @@
 #include <QTableView>
 
 #include "tablemodel.h"
+#include "computethread.h"
 
 namespace Ui {
 class MainWindow;
@@ -25,7 +26,15 @@ public:
     //void initializeModel(QTableModel *model);
 public slots:
     void showGraph();
+    void tableModel(double result);
     void showTable();
+
+private:
+     ComputeThread *computePiThread;
+     double result;
+     MyTableModel *model;
+private slots:
+     void slotGetResult(double result);
 
 private:
     Ui::MainWindow *ui;

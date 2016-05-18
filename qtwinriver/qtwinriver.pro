@@ -16,16 +16,18 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     scatterplot.cpp \
     plot.cpp \
-    tablemodel.cpp
+    tablemodel.cpp \
     rawdatafromdb.cpp \
-    tgraphdatamodel.cpp
+    tgraphdatamodel.cpp \
+    computethread.cpp
 
 HEADERS  += mainwindow.h \
     scatterplot.h \
     plot.h \
     sqlconnection.h \
-    tablemodel.h
+    tablemodel.h \
     rawdatafromdb.h \
-    tgraphdatamodel.h
+    tgraphdatamodel.h \
+    computethread.h
 
 FORMS    += mainwindow.ui

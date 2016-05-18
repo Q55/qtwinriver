@@ -51,13 +51,29 @@ MainWindow::MainWindow(QWidget *parent) :
     //ui->menuBar;
     connect(shipSpeed, SIGNAL(triggered()), this, SLOT(showGraph()));
 
+    computePiThread = new ComputeThread;
+    computePiThread->start();
+    //connect(computePiThread, SIGNAL(computeFinish(double)), this, SLOT(slotGetResult(double)));
+
     connect(tableTemp1, SIGNAL(triggered()), this, SLOT(showTable()));
-    TGraphDataModel *t_data_model = new TGraphDataModel();
-    qDebug()<<t_data_model->GetRecordNum();
+    connect(computePiThread, SIGNAL(computeFinish(double)), this, SLOT(tableModel(double)));
+    //TGraphDataModel *t_data_model = new TGraphDataModel();
+    //qDebug()<<t_data_model->GetRecordNum();
+}
+
+void MainWindow::slotGetResult(double result) {
+
+    this->result = result;
+    qDebug()<<result;
 }
 
 MainWindow::~MainWindow()
 {
+
+    computePiThread->terminate();
+    computePiThread->wait();
+    delete computePiThread;
+    computePiThread = 0;
     delete ui;
 }
 
@@ -78,16 +94,17 @@ void MainWindow::showGraph()
  * show table
  */
 //FIXME:
-void MainWindow::showTable()
+void MainWindow::tableModel(double result)
 {
     //QApplication app(argc, argv);
     //if (!createConnection())
     //    return 1;
 
-    MyTableModel *model = new MyTableModel;
+    model = new MyTableModel;
 
     QMap<QString, double> tempMap;
-    tempMap.insert("船速", 2.090);
+    //tempMap.insert("船速", 2.090);
+    tempMap.insert("船速", result);
     tempMap.insert("航向", 2.53);
     tempMap.insert("流速", 0.341);
     tempMap.insert("流向", 116.52);
@@ -114,7 +131,8 @@ void MainWindow::showTable()
     temp2Map.insert("经度", "[37.768470'E]");
     model->setUnitMap(temp2Map);
     //initializeModel(&model);
-
+}
+void MainWindow::showTable() {
     QTableView *view1 = createView(model, QObject::tr("导航(相对于底跟踪)"));
     QTableView *view2 = createView(model, QObject::tr("Table Model (View 2)"));
 
@@ -123,7 +141,7 @@ void MainWindow::showTable()
 
     view2->move(view1->x() + view1->width() + 20, view1->y());
     view2->resize(270, 380);
-    view2->show();
+    //view2->show();
 
     //return app.exec();
 }
