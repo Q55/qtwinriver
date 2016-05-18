@@ -1,7 +1,13 @@
+
+#include <QTableWidget>
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "scatterplot.h"
-#include <QTableWidget>
+#include "rawdatafromdb.h"
+#include "tgraphdatamodel.h"
+
+// set raw data to global, and initilized only once (or every 'timer' period).
+RawDataFromDB *raw_data = new RawDataFromDB();
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -45,7 +51,12 @@ MainWindow::MainWindow(QWidget *parent) :
     //ui->menuBar;
     connect(shipSpeed, SIGNAL(triggered()), this, SLOT(showGraph()));
 
+<<<<<<< HEAD
     connect(tableTemp1, SIGNAL(triggered()), this, SLOT(showTable()));
+=======
+    TGraphDataModel *t_data_model = new TGraphDataModel();
+    qDebug()<<t_data_model->GetRecordNum();
+>>>>>>> 4a1c6dc24283267f2d252ec8897e89cd58d659ca
 }
 
 MainWindow::~MainWindow()
