@@ -15,10 +15,13 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     scatterplot.cpp \
-    plot.cpp
+    plot.cpp \
+    tablemodel.cpp
 
 HEADERS  += mainwindow.h \
     scatterplot.h \
-    plot.h
+    plot.h \
+    sqlconnection.h \
+    tablemodel.h
 
 FORMS    += mainwindow.ui
