@@ -19,6 +19,7 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
+    void initialTable();
 
     QTableView * createView(MyTableModel *model, const QString &title = "");
     //FIXME: initial model by sql

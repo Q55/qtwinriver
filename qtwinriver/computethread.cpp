@@ -5,7 +5,6 @@ ComputeThread::ComputeThread(QObject *parent) :
 {
 }
 
-
 void ComputeThread::run()
 {
     qDebug()<<this->currentThreadId()<<":Begin computing!"<<endl;
@@ -17,13 +16,15 @@ void ComputeThread::run()
 //        if (i % 2 == 1) result+=value;
 //        else result-=value;
 //    }
-    float result = 0;
-    int i = 0;
-    while (i++ < 10000000)
-        if (i == 10000000) {
+    double result = 33.333;
+    //int i = 0;
+    //while (i++ < 1000)
+    //    if (i == 1000) {
             emit this->computeFinish(result);
-            i = 0;
-            result++;
-        }
+    qDebug() << "result is " << result << endl;
+            //i = 0;
+            //break;
+            //result ＝ 33.333;
+        //}
 }
 
